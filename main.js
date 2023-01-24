@@ -1,16 +1,12 @@
 const submitButton = document.querySelector(".submit-button");
 const weatherResultsDiv = document.querySelector(".weather-results");
 
-// const lat = 30.438255;
-// const lon = -84.280731;
 const API_KEY = "b2bba0475c02f5de860572c6e8d6f9b2";
-const stateCode = "";
-const countryCode = "";
 const limit = 1;
 
 function getWeather(location) {
   fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${location},${stateCode},${countryCode}&limit=${limit}&appid=${API_KEY}`
+    `http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=${limit}&appid=${API_KEY}`
   )
     .then(function (response) {
       return response.json();
@@ -23,7 +19,7 @@ function getWeather(location) {
     .then(function (coords) {
       coords = { lat, lon };
       fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${API_KEY}`
       )
         .then(function (response) {
           return response.json();
