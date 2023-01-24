@@ -34,11 +34,6 @@ function getWeather(location) {
 }
 
 function displayWeather(data) {
-  const city = data.name;
-  const weatherDescription = data.weather[0].description;
-  const temp = data.main.temp;
-  const feelsLike = data.main.feels_like;
-
   const cityP = document.createElement("p");
   const tempP = document.createElement("p");
   const weatherDescP = document.createElement("p");
@@ -49,9 +44,6 @@ function displayWeather(data) {
   weatherResultsDiv.appendChild(cityP);
   weatherResultsDiv.appendChild(tempP);
   weatherResultsDiv.appendChild(weatherDescP);
-
-  // cityP.innerHTML = `It's currently ${weatherDescription} in ${city}. The temperature is ${temp} but it feels like ${feelsLike}.`;
-  // weatherResultsDiv.appendChild(cityP);
 }
 
 submitButton.addEventListener("click", function (e) {
