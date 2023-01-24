@@ -1,12 +1,13 @@
+const key = config.API_KEY;
+
 const submitButton = document.querySelector(".submit-button");
 const weatherResultsDiv = document.querySelector(".weather-results");
 
-const API_KEY = "b2bba0475c02f5de860572c6e8d6f9b2";
 const limit = 1;
 
 function getWeather(location) {
   fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=${limit}&appid=${API_KEY}`
+    `http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=${limit}&appid=${config.API_KEY}`
   )
     .then(function (response) {
       return response.json();
@@ -19,7 +20,7 @@ function getWeather(location) {
     .then(function (coords) {
       coords = { lat, lon };
       fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${API_KEY}`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${config.API_KEY}`
       )
         .then(function (response) {
           return response.json();
@@ -39,8 +40,18 @@ function displayWeather(data) {
   const feelsLike = data.main.feels_like;
 
   const cityP = document.createElement("p");
-  cityP.innerHTML = `It's currently ${weatherDescription} in ${city}. The temperature is ${temp} but it feels like ${feelsLike}.`;
+  const tempP = document.createElement("p");
+  const weatherDescP = document.createElement("p");
+  cityP.innerHTML = data.name;
+  tempP.innerHTML = `${data.main.temp} °F`;
+  weatherDescP.innerHTML = data.weather[0].description;
+
   weatherResultsDiv.appendChild(cityP);
+  weatherResultsDiv.appendChild(tempP);
+  weatherResultsDiv.appendChild(weatherDescP);
+
+  // cityP.innerHTML = `It's currently ${weatherDescription} in ${city}. The temperature is ${temp} but it feels like ${feelsLike}.`;
+  // weatherResultsDiv.appendChild(cityP);
 }
 
 submitButton.addEventListener("click", function (e) {
